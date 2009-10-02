@@ -10,27 +10,36 @@
 	<style type="text/css">
 		body {
   		margin-top: 1.0em;
-  		background-color: #FFFFFF;
-		  font-family: "Helvetica,Arial,FreeSans"; 
+  		background-color: #FFF;
+		font-family: "Helvetica,Arial,FreeSans"; 
   		color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-		h1 { font-size: 3.8em; color: #afc40b; margin-bottom: 3px; }
+                }
+                #container {
+                margin: 0 auto;
+                width: 700px;
+                }
+		h1 { font-size: 3.8em; color: #444; margin-bottom: 3px; }
 		h1 .small { font-size: 0.4em; }
 		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #afc40b; }
-    h3 { text-align: center; color: #afc40b; }
-    a { color: #afc40b; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
+		h2 { font-size: 1.5em; color: #444; }
+                h3 { text-align: center; color: #444; }
+                a { color: #444; }
+		.description { 
+			font-size: 1.2em; 
+			margin-bottom: 30px; 
+			margin-top: 30px; 
+			font-style: italic;
+		}
+                .download { float: right; }
+                pre { background: #000; color: #fff; padding: 15px;}
+                hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+		.footer { 
+			text-align:center; 
+			padding-top:30px; 
+			font-style: 
+			italic; 
+		}
 	</style>
-	
 </head>
 
 <body>
@@ -52,22 +61,38 @@
       Wake on Lan Monitor!
     </div>
 
-    <p>Wolicious is an wake on lan application, which shows if hosts are alive or down. You can wake up down machines with one click. It is specially useful for remote lan access.</p><h2>Dependencies</h2>
-<p>* Perl 5.8.1 or greater, <http://www.perl.org/get.html>
-* Mojolicious, <http://www.mojolicious.org>
-* Net::Ping, <http://search.cpan.org/~smpeters/Net-Ping-2.36/>
-* Net::Wake, <http://search.cpan.org/~clintdw/Net-Wake-0.02/></p>
+    <p>Wolicious is an wake on lan application, which shows if hosts are alive or down. You can wake up down machines with one click. It is specially useful for remote lan access.</p>
+
+    <div align="center">
+    </div>
+    <img src="screen.png" border="1">
+    <h2>Dependencies</h2>
+    <p>
+    <ul>
+        <li>Perl 5.8.1 or greater, <http://www.perl.org/get.html></li>
+        <li>Mojolicious, <http://www.mojolicious.org></li>
+        <li>Net::Ping, <http://search.cpan.org/~smpeters/Net-Ping-2.36/></li>
+        <li>Net::Wake, <http://search.cpan.org/~clintdw/Net-Wake-0.02/></li>
+    </ul>
+    </p>
 <h2>Install</h2>
 <p>install perl 5.8.1 or greater
-$ cpan mojolicious
-$ cpan Net::Ping
-$ cpan Net::Wake</p>
+      <pre>$ cpan mojolicious</pre>
+      <pre>$ cpan Net::Ping</pre>
+      <pre>$ cpan Net::Wake</pre>
+      <pre>$ wget http://github.com/tholen/wolicious/tarball/master
+$ tar xvzf tholen-wolicious-9aba6a2.tar.gz
+$ cd tholen-wolicious-9aba6a2/
+$ perl wolicious.pl daemon
+Fri Oct  2 18:41:11 2009 info Mojo::Server::Daemon:56 [14869]: Server started (http://127.0.0.1:3000)
+Server available at http://127.0.0.1:3000.</pre>
+</p>
 <h2>License</h2>
 <p>This program is free software, you can redistribute it and/or modify it under the same terms as Perl 5.10.</p>
 <h2>Authors</h2>
-<p>Thomas Lenz (tholen@cpan.org)<br/><br/>      </p>
+<p>Thomas Lenz (tholen@cpan.org)<br/><br/>      </p>
 <h2>Contact</h2>
-<p> (tholen@cpan.org)<br/>      </p>
+<p> (tholen@cpan.org)<br/>      </p>
 
 
     <h2>Download</h2>
