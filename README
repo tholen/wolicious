@@ -1,0 +1,88 @@
+NAME
+    Wolicious - Wake On Lan Monitor!
+
+SYNOPSIS
+    $ perl wolicious.pl daemon
+
+    $ <lynx|w3m|firefox> http://localhost:3000
+
+DESCRIPTION
+    Wolicious is an wake on lan application, which shows if hosts are alive
+    or down. You can wake up down machines with one click. It is specially
+    useful for remote lan access.
+
+    Wolicious is my first Mojolicious::Light webapp. More for testing
+    mojolicious and github rather then absolut required. It's based of an
+    old CGI.pm tool of mine.
+
+    The Design is of course an contribute to vti and his cool one-file blog
+    engine. <http://getbootylicios.org> Bootylicious is also a good
+    introduction in mojolicious by example.
+
+DEPENDENCIES
+    * Perl 5.8.1 or greater, <http://www.perl.org/get.html>
+    * Mojolicious, <http://www.mojolicious.org>
+    * Net::Ping, <http://search.cpan.org/~smpeters/Net-Ping-2.36/>
+    * Net::Wake, <http://search.cpan.org/~clintdw/Net-Wake-0.02/>
+
+CONFIGURATION
+    Wolicious can be configured like bootylicious through %config in
+    wolicious.pl or it's corresponding enviroment variables.
+
+        my %config = (
+            title   => $ENV{WOLICIOUS_TITLE}   || 'wolicious',
+            descr   => $ENV{WOLICIOUS_DESCR}   || 'Wake on Lan Monitor',
+            footer  => $ENV{WOLICIOUS_FOOTER}  || 'powered by Mojolicious::Lite',
+            reload  => $ENV{WOLICIOUS_RELOAD}  || '',
+            baseurl => $ENV{WOLICIOUS_BASEURL} || '/',
+        );
+
+    Setup your lan machines in %hosts in wolicious.pl,
+
+        my %hosts = (
+            1 => ["pc01", "10.10.10.1", "00:11:22:AA:AA:AA"],
+            2 => ["pc02", "10.10.10.2", "00:11:22:AA:AA:BB"],
+            3 => ["pc03", "10.10.10.3", "00:11:22:AA:AA:CC"],
+            4 => ["pc04", "10.10.10.4", "00:11:22:AA:AA:DD"],
+            5 => ["pc05", "10.10.10.5", "00:11:22:AA:AA:EE"],
+        );
+
+    or in csv-file named wolicious.csv placed in the same directory as
+    wolicious.pl.
+
+        #
+        # id,name,ip,mac
+        #
+        1,pc01,10.10.10.1,00:11:22:AA:AA:AA
+        2,pc02,10.10.10.2,00:11:22:AA:AA:BB
+        3,pc03,10.10.10.3,00:11:22:AA:AA:CC
+        4,pc04,10.10.10.4,00:11:22:AA:AA:DD
+        5,pc05,10.10.10.5,00:11:22:AA:AA:EE
+
+DEVELOPEMENT
+  REPOSITORY
+    http://github.com/tholen/wolicious
+
+  BUGTRACKING
+    http://github.com/tholen/wolicious/issues
+
+  WIKI
+    http://wiki.github.com/tholen/wolicious
+
+SEE ALSO
+    Mojo Mojolicious Mojolicious::Lite Bootylicious
+
+CREDITS
+    Viacheslav Tykhanovskyi
+
+    Sebastian Riedel
+
+AUTHOR
+    Thomas Lenz, "tholen@cpan.org".
+
+COPYRIGHT
+    Copyright (C) 2009, Thomas Lenz.
+
+    This program is free software, you can redistribute it and/or modify it
+    under the same terms as Perl 5.10.
+
