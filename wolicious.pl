@@ -10,6 +10,8 @@ my %config = (
     footer  => $ENV{WOLICIOUS_FOOTER}  || 'powered by Mojolicious::Lite',
     reload  => $ENV{WOLICIOUS_RELOAD}  || '',
     baseurl => $ENV{WOLICIOUS_BASEURL} || '/',
+    ping_proto   => 'tcp', # default tcp, icmp, udp
+    ping_timeout => '0.5', # ping timeout
 );
 
 #
@@ -38,8 +40,7 @@ sub index {
     my $c = shift;
 
     use Net::Ping;
-    my $TIMEOUT = '1.0';
-    my $p = Net::Ping->new('tcp', $TIMEOUT);
+    my $p = Net::Ping->new($config{'ping_proto'}, $config{'ping_timeout'});
 
     my %alive;
 
