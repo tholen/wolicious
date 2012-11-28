@@ -4,6 +4,8 @@ BEGIN { use FindBin; use lib "$FindBin::Bin/mojo/lib" }
 
 use Mojolicious::Lite;
 
+app->secret('kuuX8sheish0is1il1ci3ieQuu1ohh');
+
 my %config = (
     title   => $ENV{WOLICIOUS_TITLE}   || 'wolicious',
     descr   => $ENV{WOLICIOUS_DESCR}   || 'Wake on Lan Monitor',
@@ -37,7 +39,7 @@ my $csv_file = "wolicious.csv";
 _read_hosts_from_csv(\%hosts, $csv_file) if (-e $csv_file);
 
 sub index {
-    my $c = shift;
+    my $self = shift;
 
     use Net::Ping;
     my $p = Net::Ping->new($config{'ping_proto'}, $config{'ping_timeout'});
@@ -48,7 +50,7 @@ sub index {
         $alive{$host} = 'alive' if $p->ping("$hosts{$host}[1]");
     }
 
-    $c->stash(
+    $self->stash(
         config => \%config,
         hosts  => \%hosts,
         alive  => \%alive,
@@ -56,9 +58,9 @@ sub index {
 }
 
 sub wol {
-    my $c = shift;
+    my $self = shift;
 
-    my $id   = $c->stash('id');
+    my $id   = $self->stash('id');
     my $name = $hosts{$id}[0];
     my $ip   = $hosts{$id}[1];
     my $mac  = $hosts{$id}[2];
@@ -67,7 +69,7 @@ sub wol {
     my $ret = Net::Wake::by_udp(undef, $mac);
     app->log->info("wol: id:$id, mac:$mac, ret:$ret");
 
-    $c->stash(
+    $self->stash(
         config => \%config,
         id     => \$id,
         name   => \$name,
@@ -113,16 +115,13 @@ get '/index' => \&index => 'index';
 
 get '/wol/:id' => \&wol => 'wol';
 
-shagadelic(@ARGV ? @ARGV : 'cgi');
+app->start(@ARGV ? @ARGV : 'cgi');
 
 __DATA__
 
-@@ index.html.epl
+@@ index.html.ep
 % my $self = shift;
-% $self->stash(layout => 'default');
-% my $config = $self->stash('config');
-% my $hosts  = $self->stash('hosts');
-% my $alive  = $self->stash('alive');
+% layout 'default';
 <div id="header">
     <h1 id="title"><a href="/"><%= $config->{'title'} %></a></h1>
     <h2 id="descr"><%= $config->{'descr'} %>!</h2>
@@ -159,14 +158,9 @@ __DATA__
     </table></div>
     <p />
 
-@@ wol.html.epl
+@@ wol.html.ep
 % my $self = shift;
-% $self->stash(layout => 'default');
-% my $config = $self->stash('config');
-% my $id     = $self->stash('id');
-% my $name   = $self->stash('name');
-% my $ip     = $self->stash('ip');
-% my $mac    = $self->stash('mac');
+% layout 'default';
 <div id="header">
     <h1 id="title"><a href="../"><%= $config->{'title'} %></a></h1>
     <h2 id="descr"><%= $config->{'descr'} %>!</h2>
@@ -176,9 +170,8 @@ __DATA__
   send wake-up: <b><%= $$id %> ->  <%= $$name %>, <%= $$ip %>, <%= $$mac %></b>
 </pre>
 
-@@ layouts/default.html.epl
+@@ layouts/default.html.ep
 % my $self = shift;
-% my $config = $self->stash('config');
 <!html>
     <head>
         <title><%= $config->{'title'} %></title>
@@ -213,7 +206,7 @@ __DATA__
     </head>
     <body>
         <div id="body">
-            <%= $self->render_inner %>
+            <%= content %>
             <div id="footer"><%= $config->{footer} %></div>
         </div><!-- div id=body -->
     </body>
