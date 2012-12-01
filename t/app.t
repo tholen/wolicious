@@ -5,35 +5,43 @@ use warnings;
 
 use Test::More tests => 8;
 
-use Mojo::Transaction::Single;
-use Mojo::Client;
+use Mojo::Transaction::HTTP;
+use Mojo::UserAgent;
 
 use FindBin;
 require "$FindBin::Bin/../wolicious.pl";
 
-my $client = Mojo::Client->new;
+my $ua = Mojo::UserAgent->new;
 
 # Index page
-my $tx = Mojo::Transaction::Single->new_get('/');
-$client->process_app(app(), $tx);
-is($tx->res->code, 200);
+my $tx = Mojo::Transaction::HTTP->new;
+$tx->req->method('GET');
+$tx->req->url->parse('/');
+$ua->start($tx);
+is($tx->res->code, 200, "get /");
 
 # Index page
-$tx = Mojo::Transaction::Single->new_get('/index.html');
-$client->process_app(app(), $tx);
-is($tx->res->code, 200);
+$tx = Mojo::Transaction::HTTP->new;
+$tx->req->method('GET');
+$tx->req->url->parse('/index.html');
+$ua->start($tx);
+is($tx->res->code, 200, "get /index.html");
 
 # wol page 1
-$tx = Mojo::Transaction::Single->new_get('/wol/1');
-$client->process_app(app(), $tx);
-is($tx->res->code, 200);
-like($tx->res->body, qr/wake-up/);
-like($tx->res->body, qr/00\:11\:22\:AA\:AA\:AA/);
+$tx = Mojo::Transaction::HTTP->new;
+$tx->req->method('GET');
+$tx->req->url->parse('/wol/1');
+$ua->start($tx);
+is($tx->res->code, 200, "get /wol/1");
+like($tx->res->body, qr/wake-up/, "like wake-up");
+like($tx->res->body, qr/00\:11\:22\:AA\:AA\:AA/, 'like 00:11:22:AA:AA:AA');
 
-# wol page 2
-$tx = Mojo::Transaction::Single->new_get('/wol/2');
-$client->process_app(app(), $tx);
-is($tx->res->code, 200);
-like($tx->res->body, qr/wake-up/);
-like($tx->res->body, qr/00\:11\:22\:AA\:AA\:BB/);
+## wol page 2
+$tx = Mojo::Transaction::HTTP->new;
+$tx->req->method('GET');
+$tx->req->url->parse('/wol/2');
+$ua->start($tx);
+is($tx->res->code, 200, "get /wol/2");
+like($tx->res->body, qr/wake-up/, 'like wake-up');
+like($tx->res->body, qr/00\:11\:22\:AA\:AA\:BB/, 'like 00:11:22:AA:AA:BB');
 
