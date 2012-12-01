@@ -48,6 +48,7 @@ sub index {
 
     foreach my $host (keys %hosts) {
         $alive{$host} = 'alive' if $p->ping("$hosts{$host}[1]");
+        app->log->debug("ping host:$hosts{$host}[1]");
     }
 
     $self->stash(
