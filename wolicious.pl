@@ -12,8 +12,8 @@ my %config = (
     footer  => $ENV{WOLICIOUS_FOOTER}  || 'powered by Mojolicious::Lite',
     reload  => $ENV{WOLICIOUS_RELOAD}  || '',
     baseurl => $ENV{WOLICIOUS_BASEURL} || '/',
-    ping_proto   => 'tcp', # default tcp, icmp, udp
-    ping_timeout => '0.5', # ping timeout
+    ping_proto   => 'tcp',    # default tcp, icmp, udp
+    ping_timeout => '0.5',    # ping timeout
 );
 
 #
