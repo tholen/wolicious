@@ -4,7 +4,7 @@ BEGIN { use FindBin; use lib "$FindBin::Bin/mojo/lib" }
 
 use Mojolicious::Lite;
 
-app->secret('kuuX8sheish0is1il1ci3ieQuu1ohh');
+app->secrets(['kuuX8sheish0is1il1ci3ieQuu1ohh']);
 
 my %config = (
     title   => $ENV{WOLICIOUS_TITLE}   || 'wolicious',
