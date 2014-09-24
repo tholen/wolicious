@@ -51,11 +51,7 @@ sub index {
         app->log->debug("ping host:$hosts{$host}[1]");
     }
 
-    $self->stash(
-        config => \%config,
-        hosts  => \%hosts,
-        alive  => \%alive,
-    );
+    $self->stash(config => \%config, hosts => \%hosts, alive => \%alive,);
 }
 
 sub wol {
