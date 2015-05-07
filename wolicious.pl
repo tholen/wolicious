@@ -80,9 +80,9 @@ sub _read_hosts_from_csv {
 
     %$hosts = ();
 
-    if (open FILE, "<", $file) {
-        my @lines = <FILE>;
-        close FILE;
+    if (open my $fh, "<", $file) {
+        my @lines = <$fh>;
+        close $fh;
 
         my @csv;
 
