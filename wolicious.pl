@@ -80,24 +80,24 @@ sub _read_hosts_from_csv {
 
     %$hosts = ();
 
-    if (open FILE, "<", $file) {
-        my @lines = <FILE>;
-        close FILE;
+    open my $fh, "<", $file
+        or return;
 
-        my @csv;
+    my @lines = <$fh>;
+    close $fh;
 
-        foreach my $line (@lines) {
+    my @csv;
 
-            chomp $line;
-            next unless $line;
-            next if $line =~ m/^$/;
-            next if $line =~ m/^#/;
+    foreach my $line (@lines) {
 
-            @csv = split /,/, $line;
-            my $id = shift @csv;
-            $hosts->{$id} = [@csv];
+        chomp $line;
+        next unless $line;
+        next if $line =~ m/^$/;
+        next if $line =~ m/^#/;
 
-        }
+        @csv = split /,/, $line;
+        my $id = shift @csv;
+        $hosts->{$id} = [@csv];
 
     }
 
